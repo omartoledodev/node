@@ -4,12 +4,15 @@ var express = require('express');
 var middlewares = require('./middlewares/admin');
 var swig = require('swig');
 var router = require('./website/router');
+var bodyParser = require('body-parser');
 var ExpressServer = function(config){
 config = config || {};
 
 this.expressServer = express();
 
 //Middlewares
+this.expressServer.use(bodyParser.urlencoded({extended: true}))
+
 for (var middleware in middlewares){
 	this.expressServer.use(middlewares[middleware]);//le dice a express que use un middlewares
 }
